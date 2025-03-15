@@ -33,8 +33,8 @@ export default {
   data() {
     return {
       currentSong: {
-        title: 'From Me to You - Mono / Remast',
-        artist: 'BEAUTIES',
+        title: '',
+        artist: '',
       },
       audioSrc: null, // Blob URL for the audio file
       isPlaying: false,
@@ -48,13 +48,13 @@ export default {
     async fetchRandomMusic() {
       try {
         // Fetch the audio file as a binary response
-        const response = await axios.get('http://213.171.5.141/music/random/', {
+        axios.get('http://213.171.5.141/music/random/', {
           responseType: 'blob', // Important: Fetch as a binary blob
-        });
-
-        // Create a Blob URL from the binary data
-        const blob = new Blob([response.data], { type: 'audio/mpeg' });
-        this.audioSrc = URL.createObjectURL(blob);
+        }).then((response) => {
+          this.currentSong.title = response.headers.get('content-disposition'); // Extract filename from Content-Disposition header
+          const blob = new Blob([response.data], { type: 'audio/mpeg' });
+          this.audioSrc = URL.createObjectURL(blob);
+        })
 
         console.log('Audio Blob URL:', this.audioSrc); // Debugging
       } catch (err) {
