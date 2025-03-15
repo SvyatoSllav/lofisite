@@ -84,6 +84,10 @@ export default {
 };
 </script>
 
+<style lang="scss">
+@import '@src/style.css';
+</style>
+
 <style scoped lang="scss">
 .music-player {
   max-width: 400px;
