@@ -48,6 +48,7 @@ export default {
     async fetchRandomMusic() {
       try {
         // Fetch the audio file as a binary response
+        // http://213.171.5.141/music/random/
         axios.get('http://213.171.5.141/music/random/', {
           responseType: 'blob', // Important: Fetch as a binary blob
         }).then((response) => {
